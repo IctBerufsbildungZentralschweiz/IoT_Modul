@@ -1,0 +1,149 @@
+
+.active {
+    background-color: #fc07bf;
+  }
+
+.sml {
+        width: 50%;
+    
+    
+}  
+body {
+    background-color: #3b3b3b;
+}
+
+.box {
+    width: 25%;
+    height: 130%;
+    box-shadow: 10px 10px 22px 0px rgb(0 0 0 / 61%);
+    margin: 25px;
+    justify-content: center;
+    border-radius: 25px;
+    transition: all .4s ease-in-out;
+}
+.timebox {
+    width: 75%;
+    box-shadow: 10px 10px 22px 0px rgb(0 0 0 / 90%);
+    margin: 25px;
+    justify-content: center;
+    border-radius: 25px;
+    transition: all .4s ease-in-out;
+    border-color: #000000;
+    
+}
+
+.container:nth-child(even) {
+    background-color: #a2bc09;
+    border-radius: 55px;
+
+} 
+.container:nth-child(odd) {
+    background-color: #e5007c;
+    border-radius: 55px;
+
+
+} 
+
+.box:hover  {
+    width: 25%;
+    box-shadow: 10px 10px 22px 0px rgba(104, 93, 93, 0.75);
+    margin: 25px;
+    justify-content: center;
+    border-radius: 25px;
+    background-color:  #00aae3;
+    transform: scale(1.2);
+}
+
+.timebox:hover  {
+    width: 80%;
+    box-shadow: 10px 10px 22px 0px rgba(104, 93, 93, 0.75);
+    margin: 25px;
+    justify-content: center;
+    border-radius: 25px;
+    background-color:  #00aae3;
+    transform: scale(1.2);
+}
+
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    align-content: start;
+    margin: 25px;
+}
+
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 50px;
+    font-family: 'Lora', serif;
+    color: whitesmoke;
+
+}
+h2 { text-align: center;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 35px;
+    font-family: 'Lora', serif;
+    color: whitesmoke;
+}
+h3 {
+    text-align: center;
+    font-family: 'Lora', serif;
+    color: whitesmoke;
+}
+h4 {
+    text-align: center;
+    font-family: 'Lora', serif;
+    color: whitesmoke;
+    justify-content: center;
+
+}
+p {
+    font-family: arial, serif;
+    text-align: center;
+    color: whitesmoke;
+    margin: 25px;
+}
+
+
+
+
+@media screen and (max-width: 850px) {
+        
+}
+
+@media screen and (max-width: 1100px) {
+    
+    h1 {
+        font-size: 35px
+      
+    }
+    .maintext{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+
+    .box{
+        width: 80%;
+    }
+
+    
+@media screen and (max-width: 480px) {
+   
+    .container {
+        grid-template-rows: 150px auto auto auto 100px;
+    }
+
+    h1 {
+        font-size: 30px
+    }
+    .maintext{
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+}
+}
