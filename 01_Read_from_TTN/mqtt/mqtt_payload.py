@@ -99,7 +99,7 @@ client = mqtt.Client()
 client.on_connect = on_connect
 client.on_message = on_message
 # Login Credentials
-client.username_pw_set("****", "****")
+client.username_pw_set("rak811-sensor", "ttn-account-v2.Neb3eabv_CRqI6rI2yh1R2XZeMtPTHpL9bkGrVQcM1Q")
 
 client.connect("eu.thethings.network", 1883, 60)
 
