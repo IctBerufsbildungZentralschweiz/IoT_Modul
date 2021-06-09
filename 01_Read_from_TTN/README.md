@@ -3,8 +3,8 @@ Hier sind diverse Scripts abgelegt welche für das Auslesen und Darsellen von Da
 
 ## Inhalt
 
-- [HTML-Website](/html)
-- [Auslesen von TTN via MQTT](/mqtt)
+- [HTML-Website](./html)
+- [Auslesen von TTN via MQTT](/01_Read_from_TTN/mqtt)
 
 ## MySQL-Datenbank
 
