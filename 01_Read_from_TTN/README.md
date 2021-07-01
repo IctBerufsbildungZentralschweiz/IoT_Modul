@@ -1,5 +1,5 @@
 # The Things Network auslesen
-Hier sind diverse Scripts abgelegt welche für das Auslesen und Darsellen von Daten aus dem Thongs Network benötigt werden. 
+Hier sind diverse Scripts abgelegt welche für das Auslesen und Darstellen von Daten aus dem Things Network benötigt werden. 
 
 ## Inhalt
 
