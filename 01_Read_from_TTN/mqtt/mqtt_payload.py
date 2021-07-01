@@ -4,10 +4,10 @@ import mysql.connector
 import base64
 import requests
 
-topic = "rak811-sensor/devices/rak811-sensor1/up"
-mqttuser = "rak811-sensor"
-mqttpw = "ttn-account-v2.Neb3eabv_CRqI6rI2yh1R2XZeMtPTHpL9bkGrVQcM1Q"
-ttnurl = "eu.thethings.network"
+topic = "your_toppic"
+mqttuser = "your_user"
+mqttpw = "your_pw"
+ttnurl = "eu1.cloud.thethings.network"
 
 
 # The callback for when the client receives a CONNACK response from the server.
@@ -21,39 +21,40 @@ def on_connect(client, userdata, flags, rc):
 
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
-    #print(msg.topic+" "+str(msg.payload))
+    print(msg.topic+" "+str(msg.payload))
 
     # Decode JSON
     data = json.loads(msg.payload.decode('utf-8'))
-    meta = data["metadata"]   
-    gways = meta["gateways"]
+    dev_id = ((data["end_device_ids"])["device_id"])
     mqtttopic = msg.topic
     #Parsing
-    counter = (data["counter"])
-    dev_id = (data["dev_id"])
-    hardware_serial = (data["hardware_serial"])
-    payload_raw = (data["payload_raw"])
+    hardware_serial = ((data["end_device_ids"])["dev_eui"])
+    
+    port = ((data["uplink_message"])["f_port"])
+    app_id = (((data["end_device_ids"])["application_ids"])["application_id"])
+    airtime=((data["uplink_message"])["consumed_airtime"])
+    counter=((data["uplink_message"])["f_cnt"])
+    coding_rate = (((data["uplink_message"])["settings"])["coding_rate"])
+    data_rate = (((data["uplink_message"])["settings"])["data_rate_index"])
+    frequency = (((data["uplink_message"])["settings"])["frequency"])
+    
+    gtw_id = (((((data["uplink_message"])["rx_metadata"])[0])["gateway_ids"])["gateway_id"])
+    rssi = ((((data["uplink_message"])["rx_metadata"])[0])["rssi"])
+    snr = ((((data["uplink_message"])["rx_metadata"])[0])["snr"])
+    tme = ((((data["uplink_message"])["rx_metadata"])[0])["time"])
+    tmstmp = ((((data["uplink_message"])["rx_metadata"])[0])["timestamp"])
+    channel = ((((data["uplink_message"])["rx_metadata"])[0])["channel_index"])
+    payload_raw = ((data["uplink_message"])["frm_payload"])
     payload_raw = base64.b64decode(payload_raw.encode())
-    port = (data["port"])
-    app_id = (data["app_id"])
-    airtime=(meta["airtime"])
-
-    coding_rate = (meta["coding_rate"])
-    data_rate = (meta["data_rate"])
-    frequency = (meta["frequency"])
-    modulation = (meta["modulation"])
     
-    rf_chain = (gways[0]["rf_chain"])
-    rssi = (gways[0]["rssi"])
-    snr = (gways[0]["snr"])
-    tme = (gways[0]["time"])
-    tmstmp = (gways[0]["timestamp"])
-    channel = (gways[0]["channel"])
-    
+    print(payload_raw)
+    tmp=payload_raw[0:5]
+    hum=payload_raw[10:15]
 
+    print(tmp, hum)
     # Insert in to MYSQL-Table
-    sql = "INSERT INTO tbl_messages (airtime, app_id, channel, coding_rate, counter, dev_id, frequency, hardware_serial, modulation, payload_raw, port, rf_chain, rssi, snr, time, tmstmp, data_rate, topic) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-    val = (airtime, app_id, channel, coding_rate, counter, dev_id, frequency, hardware_serial, modulation, payload_raw, port, rf_chain, rssi, snr, tme, tmstmp,data_rate, mqtttopic)
+    sql = "INSERT INTO tbl_messages (counter, airtime, app_id, channel, coding_rate, dev_id, frequency, hardware_serial, payload_raw, port, rssi, snr, time, tmstmp, data_rate, topic,hum, tmp) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+    val = (counter, airtime, app_id, channel, coding_rate,  dev_id, frequency, hardware_serial, payload_raw, port, rssi, snr, tme, tmstmp,data_rate, mqtttopic, hum, tmp)
     mycursor.execute(sql, val)
     mydb.commit()
 
